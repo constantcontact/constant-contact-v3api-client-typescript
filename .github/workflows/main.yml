@@ -1,0 +1,41 @@
+name: Javascript Release
+on:
+    push:
+        branches: [ main ]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Build
+        uses: actions/setup-node@v4
+        with:
+          node-version: 16
+      - run: npm ci
+      - name: Create tag from commit
+        uses: christophebedard/tag-version-commit@v1
+        id: tag_version
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          version_regex: '([0-9]+\.[0-9]+\.[0-9]+)'
+      - name: Create a GitHub release
+        uses: ncipollo/release-action@v1
+        with:
+          tag: ${{ steps.tag_version.outputs.tag }}
+          name: Release ${{ steps.tag_version.outputs.tag }}
+  publish-npm:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          registry-url: https://registry.npmjs.org/
+      - run: npm ci
+      - run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
