@@ -6,6 +6,7 @@
 CHANGELOG.md
 LICENSE
 README.md
+README.md
 api.ts
 api/account-services-api.ts
 api/bulk-activities-api.ts

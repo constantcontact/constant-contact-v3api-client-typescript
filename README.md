@@ -1,45 +1,24 @@
-## ctct-api-client@1.0.85
+# Constant Contact API Typescript SDK
+SDK version 1.5.0
 
-This generator creates TypeScript/JavaScript client that utilizes [axios](https://github.com/axios/axios). The generated Node module can be used in the following environments:
+This repository contains a Typescript SDK for the public Constant Contact API. The code was generated using [openapi-generator](https://github.com/OpenAPITools/openapi-generator).
 
-Environment
-* Node.js
-* Webpack
-* Browserify
+## Installing
+You can install this library using npm:
+`npm install ctct-api-client`
 
-Language level
-* ES5 - you must have a Promises/A+ library installed
-* ES6
+## Getting Started
+This example demonstrates using an access token to send a request.
+> You will need to provide a valid access token to successfully send API requests.
+```typescript
+import { Configuration, SegmentsApi, GetAccountSegments200Response } from 'ctct-api-client';
 
-Module system
-* CommonJS
-* ES6 module system
-
-It can be used in both TypeScript and JavaScript. In TypeScript, the definition should be automatically resolved via `package.json`. ([Reference](http://www.typescriptlang.org/docs/handbook/typings-for-npm-packages.html))
-
-### Building
-
-To build and compile the typescript sources to javascript use:
+const bearerAccessToken = "eyJraW....";
+const configuration: Configuration = new Configuration({ accessToken: bearerAccessToken});
+const segmentsApi = new SegmentsApi(configuration);
+segmentsApi.getAllSegments().then(response => {
+    console.log(response)
+  }).catch(error => {
+    console.log(error)
+  })
 ```
-npm install
-npm run build
-```
-
-### Publishing
-
-First build the package then run ```npm publish```
-
-### Consuming
-
-navigate to the folder of your consuming project and run one of the following commands.
-
-_published:_
-
-```
-npm install ctct-api-client@1.0.85 --save
-```
-
-_unPublished (not recommended):_
-
-```
-npm install PATH_TO_GENERATED_PACKAGE --save
