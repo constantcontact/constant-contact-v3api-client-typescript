@@ -1,5 +1,5 @@
 # Constant Contact API Typescript SDK
-SDK version 1.5.0
+SDK version 1.23.0
 
 This repository contains a Typescript SDK for the public Constant Contact API. The code was generated using [openapi-generator](https://github.com/OpenAPITools/openapi-generator).
 
